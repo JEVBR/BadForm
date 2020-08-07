@@ -154,7 +154,7 @@ export default function DashBoard ({ channels, lastEntry, formLayout })  {
   function handleManualInputChange(changes) {
     Object.keys(changes).forEach( (key) => {
       console.log(key)
-      if (key !="time"){
+      if (key !=="time"){
         changes[key] = changes[key].replace(',', '.')
       }
     })   
@@ -166,7 +166,7 @@ export default function DashBoard ({ channels, lastEntry, formLayout })  {
   function removeEmptysFromManualInput() {
         let inputs = manualInput
     Object.keys(inputs).forEach( (key) => {
-      if (inputs[key] == ''){
+      if (inputs[key] === ''){
         delete inputs[key]
       } 
     });

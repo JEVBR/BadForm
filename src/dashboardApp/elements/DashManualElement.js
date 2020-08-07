@@ -20,42 +20,68 @@ export default function DashManualElement ( {manualInput, animating, formLayout 
     handleManualInputChange (changes)
   }
 
-  // This is where keys go missing? 
-  const formRows = formLayout.rows.map( ({ row_name, item_names, show_names, items}) => {
-    return <>
-      <tr><th key = {row_name}>{row_name}</th></tr>
-      {show_names == "true" ? 
-        <tr>
-          {item_names.map(name => ( 
-            <th key = {name} scope="col"> {name} </th>
-          ))}
-        </tr>
-      : 
-        <tr>
-          <th></th>  
-        </tr>
-      }  
-  
-      <tr className= {animating ? "dash-manual-entrada" : "dash-manual-entrada2"}>    
-        {items.map(item => (
-          <th key ={item}>
-            { item ? 
-              <input 
+  function RowName(props) {
+    return (
+      <tr><th>{props.row_name}</th></tr>
+    )
+  }
+
+  function ShowNames(props){
+    return (
+      <tr>
+        {props.value.map(name => ( 
+          <th key = {name} scope="col"> {name} </th>
+        ))}
+      </tr>
+    )
+  }
+
+  function ShowNoNames(){
+    return (
+      <tr>
+        <th></th>  
+      </tr>
+    ) 
+  }
+
+  function ManualInputs (props){
+    const formField = props.value.map(item => 
+      
+        <td>
+          { item ? 
+            <input 
               type="text"
               name={item}
               id={item}
               value={manualInput.item}
               onChange={e => handleChange({ [item]: e.target.value})}
               className="post-edit__input" 
-              /> 
-            :
-              <div></div>
-            }     
-          </th>
-        ))}    
-      </tr>
-    </>
-  })
+            /> 
+          :
+            <div></div>
+          }     
+        </td>
+    )
+    return (
+       formField 
+    )
+  }
+// <tr key= {item} className= {animating ? "dash-manual-entrada" : "dash-manual-entrada2"}>
+  function FormRows() {
+    const formRows = formLayout.rows.map( ({ row_name, item_names, show_names, items}) => 
+      <React.Fragment key={`Fragment${row_name}`}>
+        < RowName key = {row_name} value={row_name} />
+        { show_names === "true" ? < ShowNames key = {item_names} value={item_names}/> : <ShowNoNames key = {item_names}/> }
+        <tr>
+          < ManualInputs key ={items} value= {items} />
+        </tr>
+      </React.Fragment>
+    )
+      console.log(formRows)
+      return (
+         formRows 
+      )
+  }
 
   const submitButton = 
     <button
@@ -80,7 +106,7 @@ export default function DashManualElement ( {manualInput, animating, formLayout 
 
         <table className="table-striped table-bordered">
           <tbody>
-            {formRows}
+            {FormRows() }
           </tbody>
         </table>
       </div>

@@ -19,13 +19,13 @@ function DashboardApp() {
            "Volume_Agua_E",
            "Volume_Agua_A_E"]},{  
         "row_name":"Outputs",
-        "show_names":"false",
+        "show_names":"true",
         "item_names":[
-          "VolumeS",
-          "TotalS"],
+          "VolumeSxxxx",
+          "TotalSxxxx"],
         "items":[
            "Volume_Agua_S",
-           "Volume_Agua_A_E"]}]},
+           "Volume_Agua_A_S"]}]},
     { 
       "page_name":"Plant2",
       "module_name":"Form_Plant2",
@@ -45,7 +45,7 @@ function DashboardApp() {
           "TotalS2"],
         "items":[
            "Volume_Agua_S2",
-           "Volume_Agua_A_E2"
+           "Volume_Agua_A_S2"
   ]}]}]}
 )  
   
