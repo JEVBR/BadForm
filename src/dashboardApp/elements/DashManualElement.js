@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ManualInputContext } from '../Dash/DashBoard'
 // import DatePicker  from 'react-datepicker'
 
-export default function DashManualElement ( {manualInput, animating, formLayout } )  {
+export default function DashManualElement ( { manualInput, animating, formLayout } )  {
   const { handleEntryPost, handleManualInputChange } = useContext(ManualInputContext)
   const [startDate, setStartDate] = useState(new Date())
   const [formName, setFormName] = useState({})
@@ -17,6 +17,10 @@ export default function DashManualElement ( {manualInput, animating, formLayout 
   }
 
   function handleChange(changes) {
+    console.log('changes')
+    console.log(changes)
+    //setTest({...test, changes})
+
     handleManualInputChange (changes)
   }
 
@@ -44,36 +48,28 @@ export default function DashManualElement ( {manualInput, animating, formLayout 
     ) 
   }
 
-  function ManualInputs (props){
-    const formField = props.value.map(item => 
-      
-        <td>
-          { item ? 
-            <input 
-              type="text"
-              name={item}
-              id={item}
-              value={manualInput.item}
-              onChange={e => handleChange({ [item]: e.target.value})}
-              className="post-edit__input" 
-            /> 
-          :
-            <div></div>
-          }     
-        </td>
-    )
-    return (
-       formField 
-    )
-  }
-// <tr key= {item} className= {animating ? "dash-manual-entrada" : "dash-manual-entrada2"}>
   function FormRows() {
     const formRows = formLayout.rows.map( ({ row_name, item_names, show_names, items}) => 
-      <React.Fragment key={`Fragment${row_name}`}>
-        < RowName key = {row_name} value={row_name} />
-        { show_names === "true" ? < ShowNames key = {item_names} value={item_names}/> : <ShowNoNames key = {item_names}/> }
+      <React.Fragment >
+        < RowName />
+        { show_names === "true" ? < ShowNames value={item_names}/> : <ShowNoNames key = {item_names}/> }
         <tr>
-          < ManualInputs key ={items} value= {items} />
+        {items.map(item => (
+          <td>
+            { item ? 
+              <input 
+                type="text"
+                name={item}
+                id={item}
+                value={manualInput[item]}
+                onChange={e => handleChange({ [item]: e.target.value})}
+                className="post-edit__input" 
+              /> 
+            :
+              <div></div>
+            }     
+          </td>
+        ))}
         </tr>
       </React.Fragment>
     )
